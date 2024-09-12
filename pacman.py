@@ -10,7 +10,9 @@ Exercises
 """
 
 from random import choice
-from turtle import *
+from turtle import Turtle, bgcolor, clear, up, goto, dot, update
+from turtle import ontimer, setup, hideturtle, tracer, listen
+from turtle import onkey, done
 
 from freegames import floor, vector
 
@@ -55,14 +57,14 @@ tiles = [
 def square(x, y):
 
     # Draw square using path at (x, y).
-    path.up() # Stop drawing (lift pen 'up')
-    path.goto(x, y) # Move pen to x, y
-    path.down() # Start drawing (lower pen 'down')
-    path.begin_fill() # Fill shape
+    path.up()  # Stop drawing (lift pen 'up')
+    path.goto(x, y)  # Move pen to x, y
+    path.down()  # Start drawing (lower pen 'down')
+    path.begin_fill()  # Fill shape
 
     for count in range(4):
-        path.forward(20) # Draw one side of square
-        path.left(90) # Draw other side
+        path.forward(20)  # Draw one side of square
+        path.left(90)  # Draw other side
 
     path.end_fill()
 
@@ -80,15 +82,15 @@ def valid(point):
     # Return True if point is valid in tiles.
     index = offset(point)
 
-    if tiles[index] == 0: # If pacman can't move to tile
+    if tiles[index] == 0:  # If pacman can't move to tile
         return False
 
-    index = offset(point + 19) # If point plus 19 is valid
+    index = offset(point + 19)  # If point plus 19 is valid
 
     if tiles[index] == 0:
         return False
 
-    return point.x % 20 == 0 or point.y % 20 == 0 # Align point in grid
+    return point.x % 20 == 0 or point.y % 20 == 0  # Align point in grid
 
 
 def world():
@@ -117,14 +119,14 @@ def move():
 
     clear()
 
-    if valid(pacman + aim): # Validate if pacman can move to aim value
-        pacman.move(aim) # If valid, move to aim
+    if valid(pacman + aim):  # Validate if pacman can move to aim value
+        pacman.move(aim)  # If valid, move to aim
 
     index = offset(pacman)
 
-    if tiles[index] == 1: # If tile has white dot
-        tiles[index] = 2 # Remove white dot
-        state['score'] += 1 # Increment player score
+    if tiles[index] == 1:  # If tile has white dot
+        tiles[index] = 2  # Remove white dot
+        state['score'] += 1  # Increment player score
         x = (index % 20) * 20 - 200
         y = 180 - (index // 20) * 20
         square(x, y)
@@ -135,7 +137,7 @@ def move():
 
     # Define how ghosts move
     for point, course in ghosts:
-        if valid(point + course): # If ghost can move to square
+        if valid(point + course):  # If ghost can move to square
             point.move(course)
         else:
             options = [
@@ -144,7 +146,7 @@ def move():
                 vector(0, 10),
                 vector(0, -10),
             ]
-            plan = choice(options) # Pick one of the directions
+            plan = choice(options)  # Pick one of the directions
             course.x = plan.x
             course.y = plan.y
 
@@ -153,7 +155,6 @@ def move():
         dot(20, 'red')
 
     update()
-
 
     for point, course in ghosts:
         if abs(pacman - point) < 20:
