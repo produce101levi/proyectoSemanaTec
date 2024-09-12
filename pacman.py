@@ -14,6 +14,7 @@ from turtle import *
 
 from freegames import floor, vector
 
+# Define variable values and grid vlaues
 state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
@@ -52,21 +53,23 @@ tiles = [
 
 
 def square(x, y):
+
     # Draw square using path at (x, y).
-    path.up()
-    path.goto(x, y)
-    path.down()
-    path.begin_fill()
+    path.up() # Stop drawing (lift pen 'up')
+    path.goto(x, y) # Move pen to x, y
+    path.down() # Start drawing (lower pen 'down')
+    path.begin_fill() # Fill shape
 
     for count in range(4):
-        path.forward(20)
-        path.left(90)
+        path.forward(20) # Draw one side of square
+        path.left(90) # Draw other side
 
     path.end_fill()
 
 
 def offset(point):
-    # Return offset of point in tiles.
+    # Calculate and return offset of point in tiles.
+    # Calculate where the pacman/ghost is
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
@@ -77,15 +80,15 @@ def valid(point):
     # Return True if point is valid in tiles.
     index = offset(point)
 
+    if tiles[index] == 0: # If pacman can't move to tile
+        return False
+
+    index = offset(point + 19) # If point plus 19 is valid
+
     if tiles[index] == 0:
         return False
 
-    index = offset(point + 19)
-
-    if tiles[index] == 0:
-        return False
-
-    return point.x % 20 == 0 or point.y % 20 == 0
+    return point.x % 20 == 0 or point.y % 20 == 0 # Align point in grid
 
 
 def world():
@@ -114,14 +117,14 @@ def move():
 
     clear()
 
-    if valid(pacman + aim):
-        pacman.move(aim)
+    if valid(pacman + aim): # Validate if pacman can move to aim value
+        pacman.move(aim) # If valid, move to aim
 
     index = offset(pacman)
 
-    if tiles[index] == 1:
-        tiles[index] = 2
-        state['score'] += 1
+    if tiles[index] == 1: # If tile has white dot
+        tiles[index] = 2 # Remove white dot
+        state['score'] += 1 # Increment player score
         x = (index % 20) * 20 - 200
         y = 180 - (index // 20) * 20
         square(x, y)
@@ -130,8 +133,9 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
+    # Define how ghosts move
     for point, course in ghosts:
-        if valid(point + course):
+        if valid(point + course): # If ghost can move to square
             point.move(course)
         else:
             options = [
@@ -140,7 +144,7 @@ def move():
                 vector(0, 5),
                 vector(0, -5),
             ]
-            plan = choice(options)
+            plan = choice(options) # Pick one of the coordinates
             course.x = plan.x
             course.y = plan.y
 
@@ -149,6 +153,7 @@ def move():
         dot(20, 'red')
 
     update()
+
 
     for point, course in ghosts:
         if abs(pacman - point) < 20:
@@ -164,6 +169,7 @@ def change(x, y):
         aim.y = y
 
 
+# Step
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
