@@ -37,6 +37,18 @@ hide = [True] * 64
 tap_count = 0
 
 
+def check_win():
+    """Check if the player has won the game to display mesage."""
+    if all(not hidden for hidden in hide):
+        up()
+        goto(0, 0)
+        color('green')      # Definition of text color
+        # Share victory mesage
+        write("¡Ganaste!", align="center", font=("Arial", 36, "bold"))
+        return True  # Stop execution
+    return False
+
+
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
     up()        # Lift pen to move without drawing
@@ -98,6 +110,7 @@ def draw():
         # Display the tile number
         write(tiles[mark], font=('Arial', 30, 'normal'))
     up()
+    check_win()     # Call check win
     goto(-180, 180)     # Position in the top left corner
     color('black')      # Set the text color to black
     # Display the number of taps
