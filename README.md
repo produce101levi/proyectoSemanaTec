@@ -8,3 +8,10 @@ Cambios Realizados:
 - Cambiar el tablero modificando los valores de la matriz TILES
 - Hacer que los fantasmas se muevan más rápido modificando los valores de sus direcciones en el arreglo GHOSTS
 - Verificar que todo siga el estándar PEP8 utilizando flake8
+
+# Santiago
+Cambios Realizados:
+- Modificar el tamaño de las figuras, agregar color y centrarlas
+- Validar si una casilla esta ocupada
+- Documentar el código correctamente
+- Validar el código con flake8 usando el estándar PEP8
