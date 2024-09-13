@@ -15,3 +15,10 @@ Cambios Realizados:
 - Validar si una casilla esta ocupada
 - Documentar el código correctamente
 - Validar el código con flake8 usando el estándar PEP8
+
+# Fermín (13petabytes)
+Cambios Realizados:
+- Validar el código con flake8 usando el estándar PEP8
+- Documentación pertinente del codigo
+- Desplegar mensaje de victoria cuando el memorama sea completado
+- Contador de taps del usuario
