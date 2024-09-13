@@ -28,11 +28,13 @@ car stand for the image in the back
 titles is the list of numbers and their duplicate for the couples
 state acts as a boolean state indicating whether the tokens were selected
 hide is the state that indicates whether the cell should show the image behind
+tap_count is the amount of taps of the player
 """
 car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+tap_count = 0
 
 
 def square(x, y):
@@ -60,8 +62,11 @@ def xy(count):
 
 def tap(x, y):
     """Handle a screen tap event, update the tile state."""
+    global tap_count        # Get the tap_counter variable
     spot = index(x, y)      # Get the index of the tile that was tapped
     mark = state['mark']        # Get the currently selected tile
+    # Increase the tap count every time a tile is tapped
+    tap_count += 1
     # If the action does not alter the state
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot        # Mark the tapped tile as selected
@@ -92,6 +97,11 @@ def draw():
         color('black')      # Set text black
         # Display the tile number
         write(tiles[mark], font=('Arial', 30, 'normal'))
+    up()
+    goto(-180, 180)     # Position in the top left corner
+    color('black')      # Set the text color to black
+    # Display the number of taps
+    write(f'Taps: {tap_count}', font=('Arial', 16, 'normal'))
     update()        # Refresh the screen with the new drawing
     ontimer(draw, 100)      # Call the draw function every 100 milliseconds
 
