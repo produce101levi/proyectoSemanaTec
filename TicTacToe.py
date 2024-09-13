@@ -24,11 +24,11 @@ def drawx(x, y):
 
 def drawo(x, y):
     """Dibuja el símbolo del jugador O en azul."""
-    up()  # Levanta el lápiz antes de moverlo
-    goto(x + 67, y + 30)  # Posiciona el círculo en el centro de la celda
-    down()  # Baja el lápiz para empezar a dibujar
-    color("blue")  # Cambia el color a azul para O
-    circle(50)  # Dibuja un círculo de radio 50
+    up()
+    goto(x + 67, y + 17)
+    down()
+    color("blue")
+    circle(50)
 
 
 def floor(value):
