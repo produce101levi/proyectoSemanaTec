@@ -9,6 +9,8 @@ Cambios Realizados:
 - Hacer que los fantasmas se muevan más rápido modificando los valores de sus direcciones en el arreglo GHOSTS
 - Verificar que todo siga el estándar PEP8 utilizando flake8
 
+produce101levi
+
 # Santiago
 Cambios Realizados:
 - Modificar el tamaño de las figuras, agregar color y centrarlas
